@@ -67,3 +67,5 @@ group :test do
   gem "launchy"
   gem "webdrivers"
 end
+
+gem "devise", "~> 4.9"

@@ -1,0 +1,23 @@
+<% if @tasks.present? %>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li>
+        <% if @editing_task == task %>
+          <%= form_with model: task do |f| %>
+            <%= f.text_field :title %>
+            <%= f.check_box :completed %>
+            <%= f.submit "Update" %>
+            <%= link_to "Cancel", tasks_path %>
+          <% end %>
+        <% else %>
+          <%= task.title %>
+          <%= task.completed %> 
+          <%= link_to "Edit", tasks_path(edit_id: task.id) %>
+          <%= link_to "Delete", task_path(task), 
+                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+  

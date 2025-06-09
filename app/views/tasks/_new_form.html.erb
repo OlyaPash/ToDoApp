@@ -1,0 +1,11 @@
+<%= render 'devise/shared/error_messages', resource: @task %>
+
+<%= form_with model: @task do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: "New task" %>
+    <p>
+      <%= f.submit %>
+    <p/>
+  </div>
+<% end %>
