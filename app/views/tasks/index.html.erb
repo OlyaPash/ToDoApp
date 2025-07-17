@@ -1,6 +1,8 @@
 <h2>Add new task</h2>
-<%= render "tasks/new_form" %>
+<%= render "tasks/new_form", task: @task %>
 <p>
   <h1>Your Tasks</h1>
     <%= render @task %>
 </p>
+
+<p><%= link_to "Exit", destroy_user_session_path %></p>
