@@ -17,7 +17,7 @@ RSpec.feature "Tasks", type: :feature do
 
     visit "/tasks"
     fill_in "Title", with: "Anything"
-    click_on "Create Task"
+    click_on "Create"
 
     visit "/tasks"
     expect(page).to have_content("Anything")

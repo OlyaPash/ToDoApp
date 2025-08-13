@@ -1,23 +1,58 @@
-<% if @tasks.present? %>
-  <ul>
-    <% @tasks.each do |task| %>
-      <li>
-        <% if @editing_task == task %>
-          <%= form_with model: task do |f| %>
-            <%= f.text_field :title %>
-            <%= f.check_box :completed %>
-            <%= f.submit "Update" %>
-            <%= link_to "Cancel", tasks_path %>
-          <% end %>
-        <% else %>
-          <%= task.title %>
-          <%= task.completed %> 
-          <%= link_to "Edit", tasks_path(edit_id: task.id) %>
-          <%= link_to "Delete", task_path(task), 
-                          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        <% end %>
-      </li>
+<div class="overflow-x-auto bg-white rounded-lg shadow">
+  <% if @tasks.present? %>
+    <table class="w-full table-auto">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Task</th>
+          <th class="py-3 px-6 text-left">Status</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+    </table>
+    
+    <% if @editing_task %>
+      <%= form_with model: @editing_task do |f| %>
+        <table class="w-full table-auto">
+          <tbody class="text-gray-600 text-sm">
+            <tr class="border-b border-gray-200 hover:bg-gray-100">
+              <td class="py-3 px-6 w-83 text-left">
+                <%= f.text_field :title, class: "border rounded px-3 py-1 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+              </td>
+              <td class="py-3 px-6 text-center h-full">
+                <%= f.check_box :completed, class: "w-5 h-5 text-blue-600 rounded focus:ring-blue-500" %>
+              </td>
+              <td class="py-3 px-6 text-center">
+                <div class="flex item-center justify-center space-x-2">
+                  <%= f.submit "Update", class: "bg-blue-600 text-white px-4 py-2 font-medium rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer" %>
+                  <%= link_to "Cancel", tasks_path, class: "bg-gray-500 text-white font-medium px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
     <% end %>
-  </ul>
-<% end %>
-  
+      
+    <table class="w-full table-auto">
+      <tbody class="text-gray-600 text-sm">
+        <% @tasks.each do |task| %>
+          <% if @editing_task != task %>
+            <tr class="border-b border-gray-200 hover:bg-gray-100">
+              <th class="py-3 px-6 w-112 text-left"><%= task.title %></th>
+              <td class="py-3 px-6 w-120 text-left">
+                <%= task.completed ? "✓" : "✗" %>
+              </td>
+              <td class="py-3 px-6 text-center">
+                <div class="flex item-center justify-center space-x-2">
+                  <%= link_to "Edit", tasks_path(edit_id: task.id), class: "text-blue-500 hover:text-blue-700" %>
+                  <%= link_to "Delete", task_path(task), 
+                                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "w-4 mr-2 transform hover:text-red-500 hover:scale-110" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
