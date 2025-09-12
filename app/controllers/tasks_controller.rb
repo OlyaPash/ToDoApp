@@ -12,7 +12,7 @@ class TasksController < ApplicationController
     @task.user_id = current_user.id
 
     if @task.save
-      redirect_to @task
+      redirect_to tasks_path
     else
       render :index
     end

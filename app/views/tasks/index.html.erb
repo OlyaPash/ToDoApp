@@ -1,8 +1,19 @@
-<h2>Add new task</h2>
-<%= render "tasks/new_form", task: @task %>
-<p>
-  <h1>Your Tasks</h1>
-    <%= render @task %>
-</p>
+<div class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add new task</h2>
+    <%= render "tasks/new_form", task: @task %>
+  </div>
+</div>
 
-<p><%= link_to "Exit", destroy_user_session_path %></p>
+<div class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Your Tasks</h1>
+    <%= render @task %>
+  </div>
+</div>
+
+<div class="flex justify-between items-center mt-6">
+  <div class="flex space-x-2">
+    <%= link_to "Exit", destroy_user_session_path, class: "px-3 py-1 rounded-md bg-gray-900 text-white opacity-60" %>
+  </div>
+</div>
